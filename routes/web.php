@@ -14,46 +14,13 @@ use App\User;
 use App\District;
 use App\Categories;
 use App\Motelroom;
-Route::get('/', function () {
-	$district = District::all();
-    $categories = Categories::all();
-    $hot_motelroom = Motelroom::where('approve',1)->limit(6)->orderBy('count_view','desc')->get();
-    $map_motelroom = Motelroom::where('approve',1)->get();
-	$listmotelroom = Motelroom::where('approve',1)->paginate(4);
-    return view('home.index',[
-    	'district'=>$district,
-        'categories'=>$categories,
-        'hot_motelroom'=>$hot_motelroom,
-    	'map_motelroom'=>$map_motelroom,
-        'listmotelroom'=>$listmotelroom
-    ]);
+
+Route::group(['namespace' => 'Front'], function () {
+    Route::get('/', 'FrontController@index')->name('index');
+    Route::get('category/{id}','CategoryController@getMotelByCategoryId')->name('category');
 });
-Route::get('category/{id}','MotelController@getMotelByCategoryId');
-/* Admin */
-Route::get('admin/login','AdminController@getLogin');
-Route::post('admin/login','AdminController@postLogin')->name('admin.login');
-Route::group(['prefix'=>'admin','middleware'=>'adminmiddleware'], function () {
-    Route::get('logout','AdminController@logout');
-    Route::get('','AdminController@getIndex');
-    Route::get('thongke','AdminController@getThongke');
-    Route::get('report','AdminController@getReport');
-    Route::group(['prefix'=>'users'],function(){
-        Route::get('list','AdminController@getListUser');
-        Route::get('edit/{id}','AdminController@getUpdateUser');
-        Route::post('edit/{id}','AdminController@postUpdateUser')->name('admin.user.edit');
-        Route::get('del/{id}','AdminController@DeleteUser');
-    });
-    Route::group(['prefix'=>'motelrooms'],function(){
-        Route::get('list','AdminController@getListMotel');
-        Route::get('approve/{id}','AdminController@ApproveMotelroom');
-        Route::get('unapprove/{id}','AdminController@UnApproveMotelroom');
-        Route::get('del/{id}','AdminController@DelMotelroom');
-        // Route::get('edit/{id}','AdminController@getUpdateUser');
-        // Route::post('edit/{id}','AdminController@postUpdateUser')->name('admin.user.edit');
-        // Route::get('del/{id}','AdminController@DeleteUser');
-    });
-});
-/* End Admin */
+
+
 Route::get('/phongtro/{slug}',function($slug){
     $room = Motelroom::findBySlug($slug);
     $room->count_view = $room->count_view +1;
@@ -82,3 +49,30 @@ Route::group(['prefix'=>'user'], function () {
 /* ----*/
 
 Route::post('searchmotel','MotelController@SearchMotelAjax');
+
+
+/* Admin */
+Route::get('admin/login','AdminController@getLogin');
+Route::post('admin/login','AdminController@postLogin')->name('admin.login');
+Route::group(['prefix'=>'admin','middleware'=>'adminmiddleware'], function () {
+    Route::get('logout','AdminController@logout');
+    Route::get('','AdminController@getIndex');
+    Route::get('thongke','AdminController@getThongke');
+    Route::get('report','AdminController@getReport');
+    Route::group(['prefix'=>'users'],function(){
+        Route::get('list','AdminController@getListUser');
+        Route::get('edit/{id}','AdminController@getUpdateUser');
+        Route::post('edit/{id}','AdminController@postUpdateUser')->name('admin.user.edit');
+        Route::get('del/{id}','AdminController@DeleteUser');
+    });
+    Route::group(['prefix'=>'motelrooms'],function(){
+        Route::get('list','AdminController@getListMotel');
+        Route::get('approve/{id}','AdminController@ApproveMotelroom');
+        Route::get('unapprove/{id}','AdminController@UnApproveMotelroom');
+        Route::get('del/{id}','AdminController@DelMotelroom');
+        // Route::get('edit/{id}','AdminController@getUpdateUser');
+        // Route::post('edit/{id}','AdminController@postUpdateUser')->name('admin.user.edit');
+        // Route::get('del/{id}','AdminController@DeleteUser');
+    });
+});
+/* End Admin */

@@ -41,12 +41,6 @@ class MotelController extends Controller
 		}
 	}
 
-	public function getMotelByCategoryId($id){
-		$getmotel = Motelroom::where([['category_id',$id],['approve',1]])->paginate(3);
-		$Categories = Categories::all();
-		return view('home.category',['listmotel'=>$getmotel,'categories'=>$Categories]);
-	}
-
 	public function userReport($id,Request $request){
 		$ipaddress = '';
 	    if (getenv('HTTP_CLIENT_IP'))

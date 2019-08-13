@@ -1,49 +1,5 @@
 @extends('layouts.master')
 @section('content')
-<?php 
-function limit_description($string){
-	$string = strip_tags($string);
-	if (strlen($string) > 100) {
-
-	    // truncate string
-	    $stringCut = substr($string, 0, 100);
-	    $endPoint = strrpos($stringCut, ' ');
-
-	    //if the string doesn't contain any space then it will cut without word basis.
-	    $string = $endPoint? substr($stringCut, 0, $endPoint):substr($stringCut, 0);
-	    $string .= '...';
-	}
-	return $string;
-}
-function time_elapsed_string($datetime, $full = false) {
-	$now = new DateTime;
-	$ago = new DateTime($datetime);
-	$diff = $now->diff($ago);
-
-	$diff->w = floor($diff->d / 7);
-	$diff->d -= $diff->w * 7;
-
-	$string = array(
-		'y' => 'năm',
-		'm' => 'tháng',
-		'w' => 'tuần',
-		'd' => 'ngày',
-		'h' => 'giờ',
-		'i' => 'phút',
-		's' => 'giây',
-	);
-	foreach ($string as $k => &$v) {
-		if ($diff->$k) {
-			$v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? '' : '');
-		} else {
-			unset($string[$k]);
-		}
-	}
-
-	if (!$full) $string = array_slice($string, 0, 1);
-	return $string ? implode(', ', $string) . ' trước' : 'Vừa xong';
-}
-?>
 <div class="container-fluid" style="padding-left: 0px;padding-right: 0px;">
 	<div class="search-map hidden-xs" >
 		<div id="map"></div>
@@ -136,9 +92,7 @@ function time_elapsed_string($datetime, $full = false) {
 									<div class="room-meta">
 										<span><i class="fas fa-user-circle"></i> Người đăng: <a href="/"> {{ $room->user->name }}</a></span>
 										<span class="pull-right"><i class="far fa-clock"></i>
-											<?php 
-											echo time_elapsed_string($room->created_at);
-											?>
+											{{ time_elapsed_string($room->created_at) }}
 										</span>
 									</div>
 									<div class="room-description"><i class="fas fa-audio-description"></i>
@@ -170,8 +124,7 @@ function time_elapsed_string($datetime, $full = false) {
 										<div class="room-item-vertical">
 											<div class="row">
 												<div class="col-md-4">
-													<div class="wrap-img-vertical" style="background: url(uploads/images/<?php echo $img_thumb[0]; ?>) center;     background-size: cover;">
-														
+													<div class="wrap-img-vertical" style="background: url(uploads/images/{{ $img_thumb[0] }}) center;background-size: cover;">
 														<div class="category">
 															<a href="category/{{ $room->category->id }}">{{ $room->category->name }}</a>
 														</div>
@@ -182,11 +135,8 @@ function time_elapsed_string($datetime, $full = false) {
 														<h4><a href="phongtro/{{ $room->slug }}">{{ $room->title }}</a></h4>
 														<div class="room-meta">
 															<span><i class="fas fa-user-circle"></i> Người đăng: {{ $room->user->name }}</span>
-															<span class="pull-right"><i class="far fa-clock"></i> <?php 
-											echo time_elapsed_string($room->created_at);
-											?></span>
+															<span class="pull-right"><i class="far fa-clock"></i> {{ time_elapsed_string($room->created_at) }}</span>
 														</div>
-														
 														<div class="room-info">
 															<span><i class="far fa-stop-circle"></i> Diện tích: <b>{{ $room->area }} m<sup>2</sup></b></span>
 															<span class="pull-right"><i class="fas fa-eye"></i> Lượt xem: <b>{{ $room->count_view }}</b></span>
@@ -234,7 +184,6 @@ function time_elapsed_string($datetime, $full = false) {
 										$arrlatlng = json_decode($room->latlng,true);
 										$arrImg = json_decode($room->images,true);
 										$arrmergeLatln[] = ["slug"=> $room->slug ,"lat"=> $arrlatlng[0],"lng"=> $arrlatlng[1],"title"=>$room->title,"address"=> $room->address,"image"=>$arrImg[0],"phone"=>$room->phone];
-										
 									}
 
 									$js_array = json_encode($arrmergeLatln);
@@ -258,7 +207,6 @@ function time_elapsed_string($datetime, $full = false) {
 										content: 'bbbb'
 									}
 									];
-									console.log(javascript_array);
 
 									for (i in javascript_array){
 										var data = javascript_array[i];

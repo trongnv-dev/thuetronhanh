@@ -1,35 +1,14 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-use App\User;
-use App\District;
-use App\Categories;
-use App\Motelroom;
-
 Route::group(['namespace' => 'Front'], function () {
-    Route::get('/', 'FrontController@index')->name('index');
+    Route::get('/', 'IndexController@index')->name('index');
     Route::get('category/{id}','CategoryController@getMotelByCategoryId')->name('category');
+    Route::get('/phongtro/{slug}', 'MotelRoomController@getMotelBySlug')->name('model');
+    Route::get('/report/{id}','MotelController@userReport')->name('user.report');
+    Route::get('/motelroom/del/{id}','MotelController@user_del_motel');
+    Route::post('/searchmotel','MotelController@searchMotelAjax');
 });
 
-
-Route::get('/phongtro/{slug}',function($slug){
-    $room = Motelroom::findBySlug($slug);
-    $room->count_view = $room->count_view +1;
-    $room->save();
-    $categories = Categories::all();
-    return view('home.detail',['motelroom'=>$room, 'categories'=>$categories]);
-});
-Route::get('/report/{id}','MotelController@userReport')->name('user.report');
-Route::get('/motelroom/del/{id}','MotelController@user_del_motel');
 /* User */
 Route::group(['prefix'=>'user'], function () {
     Route::get('register','UserController@get_register');
@@ -48,13 +27,10 @@ Route::group(['prefix'=>'user'], function () {
 });
 /* ----*/
 
-Route::post('searchmotel','MotelController@SearchMotelAjax');
-
-
 /* Admin */
-Route::get('admin/login','AdminController@getLogin');
-Route::post('admin/login','AdminController@postLogin')->name('admin.login');
-Route::group(['prefix'=>'admin','middleware'=>'adminmiddleware'], function () {
+Route::get('admin/login','Admin\AdminController@getLogin');
+Route::post('admin/login','Admin\AdminController@postLogin')->name('admin.login');
+Route::group(['prefix'=>'admin', 'middleware'=>'adminmiddleware', 'namespace' => 'Admin'], function () {
     Route::get('logout','AdminController@logout');
     Route::get('','AdminController@getIndex');
     Route::get('thongke','AdminController@getThongke');
@@ -70,9 +46,6 @@ Route::group(['prefix'=>'admin','middleware'=>'adminmiddleware'], function () {
         Route::get('approve/{id}','AdminController@ApproveMotelroom');
         Route::get('unapprove/{id}','AdminController@UnApproveMotelroom');
         Route::get('del/{id}','AdminController@DelMotelroom');
-        // Route::get('edit/{id}','AdminController@getUpdateUser');
-        // Route::post('edit/{id}','AdminController@postUpdateUser')->name('admin.user.edit');
-        // Route::get('del/{id}','AdminController@DeleteUser');
     });
 });
 /* End Admin */

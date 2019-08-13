@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\MotelRoom\MotelRoomRepository;
 
-class CategoryController extends Controller
+class MotelRoomController extends Controller
 {
     protected $category_repository;
     protected $motel_room_repository;
@@ -18,9 +18,12 @@ class CategoryController extends Controller
         $this->category_repository = $category_repository;
         $this->motel_room_repository = $motel_room_repository;
     }
-    public function getMotelByCategoryId($id){
-        $list_motel = $this->motel_room_repository->getRoomByCategoryId($id);
+
+    public function getMotelBySlug($slug){
+        $room = $this->motel_room_repository->findBySlug($slug);
+        //update view + 1
+        $this->motel_room_repository->updateView($slug);
         $categories = $this->category_repository->getAllCategory();
-        return view('home.category',['listmotel'=>$list_motel,'categories'=>$categories]);
+        return view('home.detail',['motelroom'=>$room, 'categories'=>$categories]);
     }
 }

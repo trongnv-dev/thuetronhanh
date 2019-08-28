@@ -30,10 +30,10 @@ Class UserRepository {
         $update_data = [
             'name' => $data['name'],
         ];
-        if(isset($update_data['password'])){
+        if(isset($data['password'])){
             $update_data['password'] = bcrypt($data['password']);
         }
-        if(isset($update_data['password'])){
+        if(isset($data['avatar'])){
             $update_data['avatar'] = $data['avatar'];
         }
         $this->user->where('id', $id)->update($update_data);

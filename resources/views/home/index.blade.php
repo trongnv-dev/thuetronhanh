@@ -91,11 +91,11 @@
                              style="background: url(uploads/images/<?php echo $img_thumb[0]; ?>) center;     background-size: cover;">
                             <img src="" class="lazyload img-responsive">
                             <div class="category">
-                                <a href="category/{{ $room->category->id }}">{{ $room->category->name }}</a>
+                                <a href="/category/{{ $room->category->id }}">{{ $room->category->name }}</a>
                             </div>
                         </div>
                         <div class="room-detail">
-                            <h4><a href="phongtro/{{ $room->slug }}">{{ $room->title }}</a></h4>
+                            <h4><a href="/phongtro/{{ $room->slug }}">{{ $room->title }}</a></h4>
                             <div class="room-meta">
                                 <span><i class="fas fa-user-circle"></i> Người đăng: <a
                                         href="/"> {{ $room->user->name }}</a></span>
@@ -137,13 +137,13 @@
                                 <div class="wrap-img-vertical"
                                      style="background: url(uploads/images/{{ $img_thumb[0] }}) center;background-size: cover;">
                                     <div class="category">
-                                        <a href="category/{{ $room->category->id }}">{{ $room->category->name }}</a>
+                                        <a href="/category/{{ $room->category->id }}">{{ $room->category->name }}</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="room-detail">
-                                    <h4><a href="phongtro/{{ $room->slug }}">{{ $room->title }}</a></h4>
+                                    <h4><a href="/phongtro/{{ $room->slug }}">{{ $room->title }}</a></h4>
                                     <div class="room-meta">
                                         <span><i
                                                 class="fas fa-user-circle"></i> Người đăng: {{ $room->user->name }}</span>

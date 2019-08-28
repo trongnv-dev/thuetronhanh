@@ -66,7 +66,7 @@
 			<div class="col-lg-4">
 
 				<!-- Today's report -->
-				<a href="admin/report">
+				<a href="/admin/report">
 					<div class="panel bg-blue-400">
 						<div class="panel-body">
 							<h3 class="no-margin">{{ $total_report }}</h3>
@@ -83,7 +83,7 @@
 		<!-- /quick stats boxes -->
 		<!-- Footer -->
 		<div class="footer text-muted">
-			&copy; 2019. <a href="#">Project Phòng trọ Đà nẵng</a> by <a href="" target="_blank">Thành Trung</a>
+			&copy; 2019. <a href="{{ route('index') }}" target="_blank">Thuê Trọ Nhanh - Website đăng tin, tìm kiếm trọ hàng đầu miền trung</a> by <a href="https://www.facebook.com/trongnv6" target="_blank">Nguyễn Trọng</a>
 		</div>
 		<!-- /footer -->
 	</div>

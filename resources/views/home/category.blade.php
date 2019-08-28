@@ -18,11 +18,11 @@
 				<div class="wrap-img" style="background: url(uploads/images/<?php echo $img_thumb[0]; ?>) center;     background-size: cover;">
 					<img src="" class="lazyload img-responsive">
 					<div class="category">
-						<a href="">{{ $room->category->name }}</a>
+						<a href="/">{{ $room->category->name }}</a>
 					</div>
 				</div>
 				<div class="room-detail">
-					<h4><a href="phongtro/{{ $room->slug }}">{{ $room->title }}</a></h4>
+					<h4><a href="/phongtro/{{ $room->slug }}">{{ $room->title }}</a></h4>
 					<div class="room-meta">
 						<span><i class="fas fa-user-circle"></i> Người đăng: <a href="/"> {{ $room->user->name }}</a></span>
 						<span class="pull-right"><i class="far fa-clock"></i>

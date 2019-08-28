@@ -13,7 +13,7 @@
 
             <div class="breadcrumb-line">
                 <ul class="breadcrumb">
-                    <li><a href="admin"><i class="icon-home2 position-left"></i> Trang chủ</a></li>
+                    <li><a href="/admin"><i class="icon-home2 position-left"></i> Trang chủ</a></li>
                     <li class="active">Danh sách báo cáo từ người dùng</li>
                 </ul>
             </div>
@@ -75,7 +75,7 @@
             </div>
             <!-- Footer -->
             <div class="footer text-muted">
-                &copy; 2019. <a href="#">Project Phòng trọ Đà nẵng</a> by <a href="" target="_blank">Thành Trung</a>
+                &copy; 2019. <a href="{{ route('index') }}" target="_blank">Thuê Trọ Nhanh - Website đăng tin, tìm kiếm trọ hàng đầu miền trung</a> by <a href="https://www.facebook.com/trongnv6" target="_blank">Nguyễn Trọng</a>
             </div>
             <!-- /footer -->
         </div>

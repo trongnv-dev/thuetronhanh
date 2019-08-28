@@ -114,10 +114,10 @@ class UserController extends Controller
             if($exten != 'jpg' && $exten != 'png' && $exten !='jpeg' && $exten != 'JPG' && $exten != 'PNG' && $exten !='JPEG' ) {
                 return redirect('user/profile/edit')->with('thongbao','Bạn chỉ được upload hình ảnh có định dạng JPG,JPEG hoặc PNG');
             }
-            $avatar = 'avatar-'.$user->username.'-'.time().'.'.$exten;
-            while (file_exists('uploads/avatars/'.$avatar)) {
-                 $avatar = 'avatar-'.$user->username.'-'.time().'.'.$exten;
-            }
+            $avatar = 'avatar-'.$user->username . '-' . $user->id .'-' .time() . '.' .$exten;
+//            while (file_exists('uploads/avatars/'.$avatar)) {
+//                 $avatar = 'avatar-'.$user->username.'-'.time().'.'.$exten;
+//            }
             if(file_exists('uploads/avatars/'.$user->avatar)){
                 unlink('uploads/avatars/'.$user->avatar);
             }
@@ -143,7 +143,6 @@ class UserController extends Controller
             ]);
              $data['password'] = $request->txtpass;
          }
-
          $data['name'] = $request->txtname;
          $this->user_repository->editUser($user->id, $data);
          return redirect('user/profile/edit')->with('thongbao','Cập nhật thông tin thành công');

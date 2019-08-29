@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,8 +15,22 @@ class User extends Authenticatable
      * @var array
      */
     protected $table = "users";
+    public $timestamps = true;
+    protected $fillable = [
+        'id',
+        'name',
+        'username',
+        'email',
+        'password',
+        'right',
+        'phone',
+        'avatar',
+        'tinhtrang',
+        'remember_token',
+    ];
+
     public function motelroom(){
-        return $this->hasMany('App\Motelroom','user_id','id');
+        return $this->hasMany('App\Models\MotelRoom','user_id','id');
     }
 
     /**

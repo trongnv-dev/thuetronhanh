@@ -261,6 +261,26 @@ footer {
 }
 .logo-footer{
 	text-align: center;
+    margin-left: 20px;
+}
+.linked-website{
+    text-align: left;
+}
+.list-group-item{
+    background: none;
+    display: inline;
+    border-radius: 8px !important;
+    margin-right: 10px;
+}
+.list-group-item:hover{
+    background: #9eb615;
+}
+.list-group-item a{
+    color: #fff;
+}
+.list-group-item a:hover{
+    color: #000;
+    text-decoration: none;
 }
 footer .social-footer ul li {
     display: inline-block;

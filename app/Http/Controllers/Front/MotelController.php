@@ -47,7 +47,7 @@ class MotelController extends Controller
 			if(Auth::id() != $room->user_id ) {
                 return redirect('user/profile')->with('thongbao', 'Bạn không có quyền xóa bài đăng không phải là của bạn!');
             }else {
-				$room->delete();
+                $this->motel_room_repository->deleteRoom($id);
 				return redirect('user/profile')->with('thongbao','Đã xóa bài đăng của bạn');
 			}
 		}

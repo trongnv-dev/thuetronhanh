@@ -8,6 +8,7 @@ use App\Repositories\District\DistrictRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -179,15 +180,16 @@ class UserController extends Controller
          ]);
         
          /* Check file */ 
-         $json_img ="";
+         $json_img = "";
          if ($request->hasFile('hinhanh')){
             $arr_images = array();
             $inputfile =  $request->file('hinhanh');
             foreach ($inputfile as $filehinh) {
-               $namefile = "phongtro-".str_random(5)."-".$filehinh->getClientOriginalName();
-               while (file_exists('uploads/images'.$namefile)) {
-                 $namefile = "phongtro-".str_random(5)."-".$filehinh->getClientOriginalName();
-               }
+                $img_name = Str::slug($filehinh->getClientOriginalName(), '-');
+                $namefile = "phongtro-".str_random(5)."-".$img_name;
+                while (file_exists('uploads/images'.$namefile)) {
+                    $namefile = "phongtro-".str_random(5)."-".$img_name;
+                }
               $arr_images[] = $namefile;
               $filehinh->move('uploads/images',$namefile);
             }

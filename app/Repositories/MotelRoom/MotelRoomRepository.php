@@ -108,6 +108,8 @@ Class MotelRoomRepository {
 
     public function deleteRoom($id){
         $room = $this->motel_room->find($id);
-        $room->delete();
+        $room->del_flg = 1;
+        $room->save();
+        return $room;
     }
 }
